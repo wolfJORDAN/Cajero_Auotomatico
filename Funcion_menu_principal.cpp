@@ -1,33 +1,73 @@
 #include<iostream>
-#include<stdio.h>
-#include<fstream>
 #include<string>
-
+#include<fstream>
+#include<sstream>
+#include<vector>
 
 using namespace std;
 
+class Cliente{
+	public:
+		string nombre;
+		string telefono;
+		string direccion;
+		string numero_cuenta;
+		string clave;
+		float saldo;
+	
+	public:
+		Cliente(string,string,string,string,string,float);
+};
 
-//Funcion encargada de validar la clave
-bool validar(std::string clave_ingresada) {
-
-    string clave_correcta;
-
-    clave_correcta = "8526";
-
-    /*pass = que busque las claves en el archivo txt*/
-
-    if(clave_correcta == clave_ingresada){
-        cout<<"Clave valida"<<endl;
-        return true;
-        
-
-    }
-    else{
-        cout<<"Clave incorrecta!"<<endl;
-        return false;
-    }
+Cliente::Cliente(string _nombre,string _telefono,string _direccion,string _clave, float _saldo){
+	nombre = _nombre;
+	telefono = _telefono;
+	direccion = _direccion;
+	clave = _clave;
+	saldo = _saldo;
 }
 
+bool validar(clave_ingresada){
+
+	ifstream archivo("Clientes.txt");
+	
+	
+	
+	if(archivo.is_open()){
+		
+		string linea;
+		
+		vector<Cliente> clientes;
+		
+		while(getline(archivo, linea)){
+			string nombre, telefono, direccion, clave, numero_cuenta, saldo_str;
+			float saldo;
+			
+			stringstream ss(linea);
+			
+			
+			getline(ss, nombre, ",");
+			getline(ss, numero_cuenta, ",");
+			getline(ss, direccion, ",");
+			getline(ss, clave, ",");
+			getline(ss, saldo_str, ",");
+			
+			saldo = stof(saldo_str);
+			
+			Cliente cliente(nombre, numero_cuenta, direccion, clave, saldo);
+			
+			clientes.push_back(cliente);
+			
+		}
+		
+		}
+	}
+
+
+}
+	
+	
+}
 void desplegar_menu(){
 
     string clave;
@@ -43,7 +83,7 @@ void desplegar_menu(){
             //cin.ignore(); // Limpiar el búfer de entrada
             getline(cin,clave);
 
-            bool aut = validar(clave);
+        bool aut = validar(clave);
         if(aut==true){
 
             /*cout<<"Ingrese una clave: ";
@@ -62,6 +102,10 @@ void desplegar_menu(){
     }
 
 }
+
+/*clientes= emerson askjfjk
+lusi dsfa
+*/
 
 int main(){
 
