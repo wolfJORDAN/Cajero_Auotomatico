@@ -30,7 +30,7 @@ Cliente::Cliente(string _nombre, string _numeroCuenta, string _clave,string _dir
 
 
 
-//Funcion encargada de validar la clave
+//Funcion encargada de crear un vector con los clientes del archivo
 vector<Cliente> leer_almacenar() {
 
 
