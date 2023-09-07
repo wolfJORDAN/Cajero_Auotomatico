@@ -12,9 +12,18 @@ public:
     string telefono;
     float saldo;
 
-    Cliente(string _nombre, string _numeroCuenta, string _clave, string _direccion, string _telefono, float _saldo)
-        : nombre(_nombre), numeroCuenta(_numeroCuenta), clave(_clave), direccion(_direccion), telefono(_telefono), saldo(_saldo) {}
+    Cliente(string, string, string, string , string, float);
 };
+
+Cliente::Cliente(string _nombre, string _numeroCuenta, string _clave, string _direccion, string _telefono, float _saldo){
+    nombre = _nombre;
+    numeroCuenta = _numeroCuenta;
+    clave = _clave;
+    direccion = _direccion;
+    telefono = _telefono;
+    saldo = _saldo;
+    
+}
 
 int validar(string clave_ingresada, const Cliente clientes[], int numClientes) {
     for (int i = 0; i < numClientes; i++) {
@@ -33,18 +42,26 @@ void depositar(int indice, Cliente clientes[], float monto) {
     clientes[indice].saldo += monto;
 }
 
-void retirar(int indice, Cliente clientes[], float monto){
-    clientes[indice].saldo -= monto;
+void retiro(int indice, Cliente clientes[], float monto){
+    clientes[indice].saldo = clientes[indice].saldo - monto;
 }
 
 void Operaciones() {
     string clave;
 
-    const int numClientes = 3;
+    const int numClientes = 10;
+
     Cliente clientes[numClientes] = {
-        Cliente("Cliente1", "Cuenta1", "Clave1", "Direccion1", "Telefono1", 100.0),
-        Cliente("Cliente2", "Cuenta2", "Clave2", "Direccion2", "Telefono2", 200.0),
-        Cliente("Cliente3", "Cuenta3", "Clave3", "Direccion3", "Telefono3", 300.0)
+        Cliente("Juan Carlos Ramirez Perez", "12345678", "1234", "San Jose La Arada, Chiquimula", "(502)1234-5678", 1000.0),
+        Cliente("Maria Isabel Martinez Garcia", "12345679", "1734", "San Jose La Arada, Chiquimula", "(502)1234-5679", 200.0),
+        Cliente("Luis Alberto Rodriguez Fernandez", "12345679", "2234", "Ipala, Chiquimula", "(502)1234-5671", 300.0),
+        Cliente("Ana Sofia Lopez Torres", "123459789", "1235", "Direccion3", "(502)1234-5688", 400.0),
+        Cliente("Pedro Antonio Gonzalez Ramirez", "12345677", "5678", "San Jose La Arada, Chiquimula", "(502)1234-5778", 500.0),
+        Cliente("Laura Victoria Hernandez Silva", "12345676", "8998", "Esquipulas, Chiquimula", "(502)5234-5678", 600.0),
+        Cliente("Miguel Angel Perez Diaz", "12345675", "6556", "San Jose La Arada, Chiquimula", "(502)1234-5673", 1000.0),
+        Cliente("Gabriela Alejandra Torres Ruiz", "12345674", "9983", "San Jose La Arada, Chiquimula", "(502)9636-8525", 550.0),
+        Cliente("Manuel Alejandro Sanchez Martines", "12345673", "7887", "Esquipulas, Chiquimula", "(502)9080-6030", 2000.0),
+        Cliente("Paola Andrea Gomez Lopez", "12345672", "7896", "San Jose La Arada, Chiquimula", "(502)4586-3645", 300.0)
     };
 
     int indice_cliente;
@@ -58,11 +75,11 @@ void Operaciones() {
             cout << "Clave correcta" << endl;
             cout<<"Numero Cuenta: "<<clientes[indice_cliente].numeroCuenta<<endl;
             cout<<"Nombre: "<<clientes[indice_cliente].nombre<<endl;
-            cout<<"Numero Cuenta: "<<clientes[indice_cliente].direccion<<endl;
-            cout<<"Numero Cuenta: "<<clientes[indice_cliente].telefono<<endl<<endl;
+            cout<<"Direccion: "<<clientes[indice_cliente].direccion<<endl;
+            cout<<"Telefono: "<<clientes[indice_cliente].telefono<<endl<<endl;
             break;
         } else {
-            cout << "La clave ingresada no es valida!" << endl;
+            cout << "La clave ingresada no es valida" << endl;
         }
     }
 
@@ -86,7 +103,7 @@ void Operaciones() {
         case 2: {
             float monto_deposito;
             system("cls");
-            cout << "Ha seleccionado la operación de Depósito." << endl;
+            cout << "Ha seleccionado la operacion de Deposito." << endl;
             cout << "Por favor, ingrese la cantidad que desea depositar: Q";
             cin >> monto_deposito;
 
@@ -102,7 +119,7 @@ void Operaciones() {
                     depositar(indice_cliente, clientes, monto_deposito);
                     cout << "Deposito exitoso, su saldo actual es de Q" << clientes[indice_cliente].saldo << endl;
                 } else {
-                    cout << "Operacion de depósito cancelada." << endl;
+                    cout << "Operacion de deposito cancelada." << endl;
                 }
             } else {
                 cout << "LA CANTIDAD DEBE SER MAYOR A CERO" << endl;
@@ -111,142 +128,71 @@ void Operaciones() {
         }
 
         case 3: {
-            int opcion_retiro;
-            float monto_retiro;
-            system("cls");
-            cout<<"Retiro de Efectivo"<<endl;
-                for(int e =0; e<20; e++){
-                    cout<<"-";
-                    cout<<"-";
-                }
-                cout<<endl;
-            cout<<"Seleccione la cantidad a retirar: "<<endl;
-            cout<<"1. Q100.00"<<endl;
-            cout<<"2. Q200.00"<<endl;
-            cout<<"3. Q500.00"<<endl;
-            cout<<"4. Q1000.00"<<endl;
-            cout<<"5. Otro monto"<<endl;
+    int opcion_retiro;
+    float monto_retiro;
+    system("cls");
+    cout << "Retiro de Efectivo" << endl;
+    for (int e = 0; e < 20; e++) {
+        cout << "-";
+        cout << "-";
+    }
+    cout << endl;
+    cout << "Seleccione la cantidad a retirar: " << endl;
+    cout << "1. Q100.00" << endl;
+    cout << "2. Q200.00" << endl;
+    cout << "3. Q500.00" << endl;
+    cout << "4. Q1000.00" << endl;
+    cout << "5. Otro monto" << endl;
+    cin >> opcion_retiro;
 
-            if(opcion_retiro == 1){
+    switch (opcion_retiro) {
+    case 1:
+        monto_retiro = 100.0;
+        break;
+    case 2:
+        monto_retiro = 200.0;
+        break;
+    case 3:
+        monto_retiro = 500.0;
+        break;
+    case 4:
+        monto_retiro = 1000.0;
+        break;
+    case 5:
+        cout << "Que cantidad desea retirar: ";
+        cin >> monto_retiro;
+        break;
+    default:
+        cout << "Opcion no valida" << endl;
+        break;
+    }
+
+    if (opcion_retiro >= 1 && opcion_retiro <= 5) {
+        if (monto_retiro <= clientes[indice_cliente].saldo) {
+            system("cls");
+            retiro(indice_cliente, clientes, monto_retiro);
+            cout << "Transaccion completada. Por favor, retire su dinero. Gracias por utilizar nuestros servicios." << endl;
+            cout << "Tu saldo actual es de: " << clientes[indice_cliente].saldo << endl;
+            } else {
                 system("cls");
-                while(true){
-                cout<<"Ha seleccionado retirar Q1000.00. Desea continuar (Si: 1/ No:2)";cin>>opcion_retiro;cout<<endl;
-                if(opcion_retiro == 1){
-                    if(1000.0<clientes[indice_cliente].saldo){
-                                retirar(indice_cliente, clientes, 1000.0);
-                            cout<<"Transaccion completada. Por favor, retire su dinero. Gracias por utilizar nuestros servicios."<<endl;
-                            cout<<"Tu saldo actual es de: "<<clientes[indice_cliente].saldo<<endl;
-                        break;
-                            }
-                            else{
-                                cout<<"Saldo insuficiente. No es posible completar la transaccion.";
-                                cout<<"Ingrese una cantidad valida";
-                                system("cls");                                
-                                }
-                }
-                else{
-                    cout<<"Operacion de retiro cancelada"<<endl;
-                    break;
-                }
-                }
+                cout << "Saldo insuficiente. No es posible completar la transaccion." << endl;
             }
-            else if(opcion_retiro == 2){
-                system("cls");
-                while(true){
-                cout<<"Ha seleccionado retirar Q200.00. Desea continuar (Si: 1/ No:2)";cin>>opcion_retiro;
-                if(opcion_retiro == 1){
-                    if(200.0<clientes[indice_cliente].saldo){
-                                retirar(indice_cliente, clientes, 200.0);
-                            cout<<"Transaccion completada. Por favor, retire su dinero. Gracias por utilizar nuestros servicios."<<endl;
-                            cout<<"Tu saldo actual es de: "<<clientes[indice_cliente].saldo<<endl;
-                        break;
-                            }
-                            else{
-                                cout<<"Saldo insuficiente. No es posible completar la transacción.";
-                                cout<<"Ingrese una cantidad valida!";
-                                system("cls");                                
-                                }
-                }
-                else{
-                    cout<<"Operacion de retiro cancelada!"<<endl;
-                    break;
-                }
-                }
-            }
-            else if(opcion_retiro == 3){
-                system("cls");
-                while(true){
-                cout<<"Ha seleccionado retirar Q500.00. Desea continuar? (Si: 1/ No:2)";cin>>opcion_retiro;cout<<endl;
-                if(opcion_retiro == 1){
-                    if(500.0<clientes[indice_cliente].saldo){
-                                retirar(indice_cliente, clientes, 500.0);
-                            cout<<"Transacción completada. Por favor, retire su dinero. Gracias por utilizar nuestros servicios."<<endl;
-                            cout<<"Tu saldo actual es de: "<<clientes[indice_cliente].saldo<<endl;
-                        break;
-                            }
-                            else{
-                                cout<<"Saldo insuficiente. No es posible completar la transacción.";
-                                cout<<"Ingrese una cantidad valida!";
-                                system("cls");                                
-                                }
-                }
-                else{
-                    cout<<"Operacion de retiro cancelada!"<<endl;
-                    break;
-                }
-                }
-            }
-            else if(opcion_retiro == 4){
-                system("cls");
-                while(true){
-                cout<<"Ha seleccionado retirar Q1000.00. Desea continuar? (Si: 1/ No:2)";cin>>opcion_retiro;cout<<endl;
-                if(opcion_retiro == 1){
-                    if(1000.0<clientes[indice_cliente].saldo){
-                                retirar(indice_cliente, clientes, 1000.0);
-                            cout<<"Transacción completada. Por favor, retire su dinero. Gracias por utilizar nuestros servicios."<<endl;
-                            cout<<"Tu saldo actual es de: "<<clientes[indice_cliente].saldo<<endl;
-                        break;
-                            }
-                            else{
-                                cout<<"Saldo insuficiente. No es posible completar la transacción.";
-                                cout<<"Ingrese una cantidad valida!";
-                                system("cls");                                
-                                }
-                }
-                else{
-                    cout<<"Operacion de retiro cancelada"<<endl;
-                    break;
-                    system("cls");
-                }
-                }
-            }
-            else if(opcion_retiro == 5){
-                system("cls");
-                while(true){
-                        cout<<"Que cantidad desea retirar ";cin>>monto_retiro;cout<<endl;
-                        cout<<"Ha seleccionado retirar Q"<<monto_retiro<<" Desea continuar? (Si: 1/ No:2)";cin>>opcion_retiro;cout<<endl;
-                        if(opcion_retiro == 1){
-                            if(monto_retiro<clientes[indice_cliente].saldo){
-                                retirar(indice_cliente, clientes, monto_retiro);
-                            cout<<"Transacción completada. Por favor, retire su dinero. Gracias por utilizar nuestros servicios."<<endl;
-                            cout<<"Tu saldo actual es de: "<<clientes[indice_cliente].saldo<<endl;
-                        break;
-                            }
-                            else{
-                                cout<<"Saldo insuficiente. No es posible completar la transacción.";
-                                cout<<"Ingrese una cantidad valida!";
-                                system("cls");                                
-                                }
-                        }
-                    }
-                }
-                else{
-                    cout<<"Opcion no valida"<<endl;
-                }
-                break;
-            }
+        }
+        break;
+    }
+
             case 4:{
-                exit(1);
+                int opc_salir;
+                system("cls");
+                cout<<"Deseas salir? Si:1 / No:2"<<endl;
+                cin>>opc_salir;
+                if(opc_salir == 1){
+                    exit(1);
+                }
+                else{
+                    break;
+                }
+                
             }
         }
     }
